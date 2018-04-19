@@ -13,7 +13,7 @@ oracledb.getConnection(
       console.error(err.message);
       return;
     }
-    connection.execute('SELECT * FROM lol',  // bind value for :id
+    connection.execute('SELECT * FROM BUSINESS where rownum=1',  // bind value for :id
       function(err, result) {
         if (err) {
           console.error(err.message);
