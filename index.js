@@ -1,7 +1,40 @@
 var express = require('express')
 var app = express()
-var mysql = require('mysql');
-app.set('port', (process.env.PORT || 5000))
+var oracledb = require('oracledb');
+
+oracledb.getConnection(
+  {
+  	user     : 'Group8',
+  	password : 'myownyelp',
+    connectString     : 'cis550project.c6y5gn1mrsa8.us-east-2.rds.amazonaws.com/PROJ550'
+  },
+  function(err, connection) {
+    if (err) {
+      console.error(err.message);
+      return;
+    }
+    connection.execute('SELECT * FROM lol',  // bind value for :id
+      function(err, result) {
+        if (err) {
+          console.error(err.message);
+          doRelease(connection);
+          return;
+        }
+        console.log(result.rows);
+        doRelease(connection);
+      });
+  });
+
+function doRelease(connection) {
+  connection.close(
+    function(err) {
+      if (err)
+        console.error(err.message);
+    });
+}
+console.log("I am here")
+
+app.set('port', (process.env.PORT || 5001))
 app.use(express.static(__dirname + '/public'))
 
 app.get('/login', function(request, response) {
@@ -9,9 +42,6 @@ app.get('/login', function(request, response) {
 })
 app.get('/signup', function(request, response) {
   response.sendFile(__dirname  + '/signup.html');
-})
-app.get('/p5', function(request, response) {
-  response.sendFile(__dirname  + '/p5.html');
 })
 
 
