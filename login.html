@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="stylesheet" href="login.css">
-</head>
-<div class="wrap">
-  <h1>MY OWN YELP!</h1>
-</div>
-<div class="login-page">
-  <div class="form">
-    <form class="register-form">
-      <input type="text" placeholder="name"/>
-      <input type="password" placeholder="password"/>
-      <input type="text" placeholder="email address"/>
-      <button>create</button>
-      <p class="message">Already registered? <a href="#">Sign In</a></p>
-    </form>
-    <form class="login-form">
-      <input type="text" placeholder="username"/>
-      <input type="password" placeholder="password"/>
-      <button>login</button>
-      <p class="message">Not registered? <a href="http://localhost:5000/signup">Create an account</a></p>
-    </form>
-  </div>
-</div>
-</html>>
+    <head>
+        <link href="login.css" rel="stylesheet">
+            <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js">
+            </script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+            </script>
+            <script src="/login_script.js">
+            </script>
+        </link>
+    </head>
+    <body ng-app="Login">
+        <div class="wrap">
+            <h1>
+                MY OWN YELP!
+            </h1>
+        </div>
+        <div class="login-page" ng-controller="logController">
+            <div class="form">
+                <form class="login-form">
+                    <input id="uid" ng-model="user_id" placeholder="user id" type="text"/>
+                    <input id="pwd" ng-model="user_pass" placeholder="password" type="password"/>
+                    <table>
+                        <tr>
+                            <td>
+                                <button id="login" ng-click="Verify()" class="button">sign in
+                                </button>
+                            </td>
+                            <td>
+                                <button id="signup" ng-click="Create()" class="button">sign up
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
+>
