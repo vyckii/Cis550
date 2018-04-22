@@ -1,9 +1,15 @@
 <!DOCTYPE html> 
 <html>
 	<head>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+  
+      	<link rel="stylesheet" href="/search.css">
 		<script src = "http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
 		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="/search_script.js"></script>
+		
 		<!-- <script src = "/searchbest_script.js"></script> -->
 		<!-- <style>
 		table, th, td {
@@ -11,30 +17,67 @@
     		border-collapse: collapse;
 		}									
 		</style>  -->
+
 	</head>
 	<body ng-app = "Search">
 		<div ng-controller = "SearchController">
-			<p> Find all the shops you are interested in </p> 
-			<p> 
-				<input city="city" ng-model="city" value="">
-				<input feature="feature" ng-model="feature" value="">
-				<!-- City: <input type = "text" ng-model = "city" value = ''>
-				Feature: <input type = "text" ng-model = "feature" value = ''> -->
-				<button type="button" ng-click="SearchF()" class="button">Search</button>
-			</p>
-			<table>
-		        	<td> Name </td>
-		            <td> Address </td>
-		            <td> Star </td>
-		            <td> Review Count </td>
-				<tr ng-repeat = "x in data">
-		            <td> {{x.NAME}} </td>
-		            <td> {{x.ADDRESS}} </td>
-		            <td> {{x.STARS}} </td>
-		            <td> {{x.REVIEW_COUNT}} </td>
+			<h1>Search</h1>
+			<div class="form">
+                <form class="search-form">
+                    <input city="city" ng-model="city" placeholder="city" value="">
+					<input feature="feature" ng-model="feature" placeholder="feature" value="">
+					<input time = "time" ng-model = "time" placeholder="time" value = "">
+                    <table>
+                        <tr>
+                            
+                             <button type="button" ng-click="SearchF()" class="button">Search
+                             </button>
+                            
+           
+                        </tr>
+                    </table>
+                </form>
+            </div>
+			<section>
+			<div class="tbl-header">
+    		<table cellpadding="0" cellspacing="0" border="0">
+      		<thead>
+        		<tr>
+          		<th> Name </th>
+		            <th> Address </th>
+		            <th> Star </th>
+		            <th> Review Count </th>
+        		</tr>
+      		</thead>
+   		 	</table>
+  			</div>
+  			<div class="tbl-content">
+    		<table cellpadding="0" cellspacing="0" border="0">
+      		<tbody>
+        		<tr ng-repeat = "x in data">
+		            <td> {{x[0]}} </td>
+		            <td> {{x[1]}} </td>
+		            <td> {{x[2]}} </td>
+		            <td> {{x[3]}} </td>
 				</tr>
-			</table>
-		</div>
+      		</tbody>
+    		</table>
+  			</div>
+			</section>
+			<!-- <table>
+		        	
+		             <td> Open Time </td>
+		              <td> Close Time </td>
+				<tr ng-repeat = "x in data">
+		            <td> {{x[0]}} </td>
+		            <td> {{x[1]}} </td>
+		            <td> {{x[2]}} </td>
+		            <td> {{x[3]}} </td>
+		            <td> {{x[4]}} </td>
+		            <td> {{x[5]}} </td>
+				</tr>
+			</table> -->
+
 	</body>
 	<!-- <body ng-app = "SearchBest">
 		<div ng-controller = "SearchBestController">

@@ -2,7 +2,7 @@ var app = angular.module('Search',[]);
 
 app.controller('SearchController', function($scope, $http) {
         $scope.SearchF = function() {
-        var request = $http.get("/search_feature/" + $scope.city + "/" + $scope.feature);
+        var request = $http.get("/search_feature/" + $scope.city + "/" + $scope.feature + "/" + $scope.time);
         console.log($scope.city + " " + $scope.feature)
         request.success(function(data) {
             $scope.data = data;
