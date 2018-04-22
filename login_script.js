@@ -1,6 +1,10 @@
 var app = angular.module('Login', [])
 app.controller('logController', function($scope, $http) {
             $scope.Verify = function() {
+                if($scope.user_id == null || $scope.userpass == null){
+                    alert('Invalid user id or password.')
+                    return
+                }
                 var request = $http.get("/login_info/" + $scope.user_id + "/" + $scope.user_pass)
                 request.success(function(data) {
                     if (data.length != 0) {
@@ -15,6 +19,10 @@ app.controller('logController', function($scope, $http) {
                 })
             }
             $scope.Create = function() {
+                if($scope.user_id == null || $scope.userpass == null){
+                    alert('Invalid user id or password.')
+                    return
+                }
                 var request = $http.get("/signup_check/" + $scope.user_id)
                 request.success(function(data) {
                     if (data.length != 0) {
