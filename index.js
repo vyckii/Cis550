@@ -88,7 +88,9 @@ app.get('/search', function(request, response) {
     console.log('search')
     response.sendFile(path.join(__dirname, '/', 'search.html'))
 })
-
+app.get('/search_script.js', function(request, response) {
+    response.sendFile(path.join(__dirname, '/', 'search_script.js'))
+})
 app.get('/search_feature/:city/:feature/:time', function(request, response){
     var city = request.params.city
     var feature = request.params.feature
@@ -124,9 +126,7 @@ app.get('/search_feature/:city/:feature/:time', function(request, response){
         response.send(result.rows)
     })
 })
-app.get('/search_script.js', function(request, response) {
-    response.sendFile(path.join(__dirname, '/', 'search_script.js'))
-})
+
 // app.get('/searchbest/:city', function(request, response){
 //     var city = request.params.city
 //     var query = "select NAME, LAT, LOG, STARS, REVIEW_COUNT from BUSINESS \

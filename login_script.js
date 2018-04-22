@@ -6,7 +6,7 @@ app.controller('logController', function($scope, $http) {
                 request.success(function(data) {
                     if (data.length != 0) {
                         console.log(data)
-                        location.href="/search/"
+                        location.href="/search"
                     } else {
                         alert('User not exist or wrong info!')
                     }
@@ -25,7 +25,7 @@ app.controller('logController', function($scope, $http) {
                         request = $http.get("/signup_info/" + $scope.user_id + "/" + $scope.user_pass)
                         request.success(function(data) {
                             alert('Register success!')
-                            location.href="/search/"
+                            location.href="/search"
                         })
                         request.error(function(data) {
                             console.log('err')
