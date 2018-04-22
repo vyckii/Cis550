@@ -2,12 +2,13 @@ var express = require('express')
 var app = express()
 var path = require('path')
 var oracledb = require('oracledb')
+// var dbConfig = require('./dbconfig.js');
 oracledb.autoCommit = true;
 var database
 oracledb.getConnection({
-    user: 'Group8',
-    password: 'myownyelp',
-    connectString: 'cis550project.c6y5gn1mrsa8.us-east-2.rds.amazonaws.com/PROJ550'
+    user: "Group8",
+    password: "myownyelp",
+    connectString: "cis550project.c6y5gn1mrsa8.us-east-2.rds.amazonaws.com/PROJ550"
 }, function(err, connection) {
     if (err) {
         console.error(err.message)
@@ -83,6 +84,42 @@ app.get('/signup_info/:user_id/:password', function(request, response) {
         response.send(result.rows)
     })
 })
+app.get('/login', function(request, response) {
+    response.sendFile(path.join(__dirname, '/', 'search.html'))
+})
+
+app.get('/search/:name/:city/:feature', function(request, response){
+    var name = request.params.name
+    var city = request.params.city
+    var feature = request.params.feature
+    var query = "select NAME, LAT, LOG, STARS, REVIEW_COUNT from BUSINESS natural join CATEGORY \
+                 where name = '" + name + "' and city = '" + city + "'" 
+    database.execute(query, function(error, result) {
+        if (error) {
+            throw error
+            return
+        }
+        console.log(result.rows)
+        response.send(result.rows)
+    })
+})
+
+app.get('/searchbest/:city', function(request, response){
+    var city = request.params.city
+    var query = "select NAME, LAT, LOG, STARS, REVIEW_COUNT from BUSINESS \
+                 where STARS = (select max(b.from BUSINESS b \
+                                group by b.STATE \
+                                HAVING b.city = '" + city + "') AND CITY = '"  + city + "'"
+    database.execute(query, function(error, result) {
+        if (error) {
+            throw error
+            return
+        }
+        console.log(result.rows)
+        response.send(result.rows)
+    })
+})
+
 app.listen(app.get('port'), function() {
     console.log("Node app is running at localhost:" + app.get('port'))
 })

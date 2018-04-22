@@ -1,0 +1,66 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<script src = "http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src = "/search_script.js"></script>
+		<script src = "/searchbest_script.js"></script>
+		<style>
+		table, th, td {
+			border: 1px solid black;
+    		border-collapse: collapse;
+		}									
+		</style> 
+	</head>
+	<body ng-app = "Search">
+		<div ng-controller = "SearchController">
+			<p> Find all the shops you are interested in </p> 
+			<p> 
+				City: <input type = "text" ng-model = "city" value = ''>
+				Feature: <input type = "text" ng-model = "feature" value = ''>
+				<button type="button" ng-click="Search()" class="button">Search</button>
+			</p>
+			<table>
+				<tr>
+		        	<td> Name </td>
+		            <td> Latitude </td>
+		            <td> Longitude </td>
+		            <td> Stars </td>
+		            <td> Review Count </td>
+				</tr>
+				<tr ng-repeat = "x in data">
+		            <td> {{x.NAME}} </td>
+		            <td> {{x.LAT}} </td>
+		            <td> {{x.LON}}</td>
+		            <td> {{x.STARS}} </td>
+		            <td> {{x.REVIEW_COUNT}} </td>
+				</tr>
+			</table>
+		</div>
+	</body>
+	<body ng-app = "SearchBest">
+		<div ng-controller = "SearchBestController">
+			<p> Find the most high-rated shop in: <input type = "text" ng-model = "city" value = ''>
+				<button type="button" ng-click="Search()" class="button">Search</button>
+			</p>
+			<table>
+				<tr>
+		        	<td> Name </td>
+		            <td> Latitude </td>
+		            <td> Longitude </td>
+		            <td> Stars </td>
+		            <td> Review Count </td>
+				</tr>
+				<tr ng-repeat = "x in data">
+					<td> {{x.NAME}} </td>
+		            <td> {{x.LAT}} </td>
+		            <td> {{x.LON}}</td>
+		            <td> {{x.STARS}} </td>
+		            <td> {{x.REVIEW_COUNT}} </td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>
+
+
