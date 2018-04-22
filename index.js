@@ -89,12 +89,32 @@ app.get('/search', function(request, response) {
     response.sendFile(path.join(__dirname, '/', 'search.html'))
 })
 
-app.get('/search_feature/:city/:feature', function(request, response){
+app.get('/search_feature/:city/:feature/:time', function(request, response){
     var city = request.params.city
     var feature = request.params.feature
+    var time = request.params.time
+    var cityQuery = ""
+    var featureQuery = ""
+    var timeQuery = ""
+
+    if(city != "undefined"){
+        cityQuery = "b.CITY = '" + city + "'"
+    }
+    if(feature != "undefined"){
+        featureQuery = "c.FEATURE = '" + feature + "'"
+    }
+    if(time != "undefined"){
+        var myData = new Date();
+        var days = ['Monday', 'Tuesday']
+        timeQuery = " .CITY = '" + city + "'"
+    }
     console.log('city:' + city + ' feature: ' + feature)
-    var query = "select b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c\
-                 where  c.FEATURE = '" + feature + "' and b.CITY = '" + city + "'" 
+    
+    //var query = "select b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c\
+                 //where  c.FEATURE = '" + feature + "' and b.CITY = '" + city + "'" 
+    var query = "select b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c "
+
+
     database.execute(query, function(error, result) {
         if (error) {
             throw error
