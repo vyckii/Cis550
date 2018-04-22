@@ -32,7 +32,7 @@ function doRelease(connection) {
         if (err) console.error(err.message)
     })
 }
-app.set('port', (process.env.PORT || 5001))
+app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
 app.get('/quit', function(request, response) {
     doRelease(database)
@@ -84,16 +84,17 @@ app.get('/signup_info/:user_id/:password', function(request, response) {
         response.send(result.rows)
     })
 })
-app.get('/login', function(request, response) {
+app.get('/search', function(request, response) {
+    console.log('search')
     response.sendFile(path.join(__dirname, '/', 'search.html'))
 })
 
-app.get('/search/:name/:city/:feature', function(request, response){
-    var name = request.params.name
+app.get('/search_feature/:city/:feature', function(request, response){
     var city = request.params.city
     var feature = request.params.feature
-    var query = "select NAME, LAT, LOG, STARS, REVIEW_COUNT from BUSINESS natural join CATEGORY \
-                 where name = '" + name + "' and city = '" + city + "'" 
+    console.log('city:' + city + ' feature: ' + feature)
+    var query = "select b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c\
+                 where  c.FEATURE = '" + feature + "' and b.CITY = '" + city + "'" 
     database.execute(query, function(error, result) {
         if (error) {
             throw error
@@ -103,22 +104,24 @@ app.get('/search/:name/:city/:feature', function(request, response){
         response.send(result.rows)
     })
 })
-
-app.get('/searchbest/:city', function(request, response){
-    var city = request.params.city
-    var query = "select NAME, LAT, LOG, STARS, REVIEW_COUNT from BUSINESS \
-                 where STARS = (select max(b.from BUSINESS b \
-                                group by b.STATE \
-                                HAVING b.city = '" + city + "') AND CITY = '"  + city + "'"
-    database.execute(query, function(error, result) {
-        if (error) {
-            throw error
-            return
-        }
-        console.log(result.rows)
-        response.send(result.rows)
-    })
+app.get('/search_script.js', function(request, response) {
+    response.sendFile(path.join(__dirname, '/', 'search_script.js'))
 })
+// app.get('/searchbest/:city', function(request, response){
+//     var city = request.params.city
+//     var query = "select NAME, LAT, LOG, STARS, REVIEW_COUNT from BUSINESS \
+//                  where STARS = (select max(b.from BUSINESS b \
+//                                 group by b.STATE \
+//                                 HAVING b.city = '" + city + "') AND CITY = '"  + city + "'"
+//     database.execute(query, function(error, result) {
+//         if (error) {
+//             throw error
+//             return
+//         }
+//         console.log(result.rows)
+//         response.send(result.rows)
+//     })
+// })
 
 app.listen(app.get('port'), function() {
     console.log("Node app is running at localhost:" + app.get('port'))
