@@ -2,7 +2,7 @@
 @import "compass/css3";
 @import "compass/css3/transform";
 @import url(https://fonts.googleapis.com/css?family=Seaweed+Script);
-@import url('https://fonts.googleapis.com/css?family=Jua');
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
 
 .login-page {
   width: 360px;
@@ -28,7 +28,7 @@ h1 {
   font-size: 8em;
   white-space: nowrap;
   font-size: 11vw;
-  font-family: 'Jua', sans-serif;
+  font-family: 'Fjalla One', sans-serif;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.7);
  
 }
