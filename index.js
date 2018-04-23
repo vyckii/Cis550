@@ -218,7 +218,7 @@ app.get('/search_pop/:city/:feature', function(request, response) {
     var city = request.params.city
     var feature = request.params.feature
     console.log(city, feature)
-    var query = "select DISTINCT b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c WHERE b.CITY = '" + city + "' AND b.REVIEW_COUNT > 100 AND b.STARS = 5"
+    var query = "select DISTINCT b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c WHERE b.CITY = '" + city + "' AND b.REVIEW_COUNT > 100 OR b.STARS = 5"
     if (feature != "undefined") {
         query = query + " AND c.FEATURE = '" + feature + "'"
     }
