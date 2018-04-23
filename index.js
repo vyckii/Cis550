@@ -129,7 +129,7 @@ app.get('/search_feature/:city/:feature/:time', function(request, response) {
     if (time != "undefined") {
         var myDate = new Date()
         var days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
-        var today = days[myDate.getDay()]
+        var today = days[(myDate.getDay() + 6) % 7]
         var open = "h." + today + "_O"
         var close = "h." + today + "_C"
         timeQuery = open + " < " + "'" + time + "'" + " AND " + close + " > " + "'" + time + "'"
@@ -218,10 +218,11 @@ app.get('/search_pop/:city/:feature', function(request, response) {
     var city = request.params.city
     var feature = request.params.feature
     console.log(city, feature)
-    var query = "select DISTINCT b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c WHERE b.CITY = '" + city + "' AND b.REVIEW_COUNT > 100 OR b.STARS = 5"
+    var query = "select DISTINCT b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c WHERE b.CITY = '" + city + "' AND (b.REVIEW_COUNT > 100 OR b.STARS = 5)"
     if (feature != "undefined") {
         query = query + " AND c.FEATURE = '" + feature + "'"
     }
+    query = query + " ORDER BY b.REVIEW_COUNT"
     console.log(query)
     database.execute(query, function(error, result) {
         if (error) {
