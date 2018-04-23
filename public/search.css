@@ -112,6 +112,7 @@ input{
   padding: 10px;
   color: #272727;
   font-size: 20px;
+  font-weight: bold;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
@@ -327,18 +328,18 @@ input{
   z-index: 10;
 }
 #cssmenu ul {
-  border: 1px solid #cccccc;
+  border: 0px solid #FFA042;
   border-radius: 5px;
-  background: #ffffff;
-  background: -moz-linear-gradient(bottom, #f0f0f0, #ffffff);
+  background: rgba(255,255,255,0.3);
+  /*background: -moz-linear-gradient(bottom, #f0f0f0, #ffffff);
   background: -webkit-linear-gradient(bottom, #f0f0f0, #ffffff);
   background: -o-linear-gradient(bottom, #f0f0f0, #ffffff);
   background: -ms-linear-gradient(bottom, #f0f0f0, #ffffff);
-  background: linear-gradient(to top, #f0f0f0, #ffffff);
+  background: linear-gradient(to top, #f0f0f0, #ffffff);*/
 }
 #cssmenu ul li {
   display: block;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #FFA042;
 }
 #cssmenu ul li.active {
   border-bottom: 0;

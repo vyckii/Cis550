@@ -12,6 +12,7 @@
     "ejs": "latest",
     "express": "^4.16.3",
     "mysql": "^2.15.0",
+    "node-geocoder": "^3.22.0",
     "nodemon": "^1.17.3",
     "oracledb": "^2.2.0"
   },

@@ -62,7 +62,8 @@ h1 {
   border: 0;
   padding: 10px;
   color: #272727;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: bold;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
