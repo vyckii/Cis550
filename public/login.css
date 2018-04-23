@@ -37,7 +37,7 @@ h1 {
   z-index: 1;
   background: transparent;
   max-width: 200px;
-  margin: 0 auto 150px;
+  margin: 0 auto 0px;
   padding: 30px;
   text-align: center;
   box-shadow: 0 0 100px 0 rgba(0, 0, 0, 0.6), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -122,7 +122,6 @@ h1 {
 }
 body {
   background:url("https://steamuserimages-a.akamaihd.net/ugc/863988638207423297/1F8F408023AD373C6AC97F5E1CF5B796846B02D8/");
-  background-position:center;
   background-repeat:no-repeat;
   background-size: cover;
   -webkit-background-size: cover;
