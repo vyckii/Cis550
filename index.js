@@ -39,7 +39,7 @@ app.get('/quit', function(request, response) {
 })
 app.get('/login', function(request, response) {
     response.sendFile(path.join(__dirname, '/', 'login.html'))
-}) 
+})
 app.get('/login_script.js', function(request, response) {
     response.sendFile(path.join(__dirname, '/', 'login_script.js'))
 })
@@ -88,24 +88,22 @@ app.get('/search', function(request, response) {
     console.log('search')
     response.sendFile(path.join(__dirname, '/', 'search.html'))
 })
-
-app.get('/search_feature/:city/:feature/:time', function(request, response){
+app.get('/search_feature/:city/:feature/:time', function(request, response) {
     var city = request.params.city
     var feature = request.params.feature
     var time = request.params.time.toString()
     var cityQuery = ""
     var featureQuery = ""
     var timeQuery = ""
-
-    if(city != "undefined"){
+    if (city != "undefined") {
         cityQuery = "b.CITY = '" + city + "'"
     }
-    if(feature != "undefined"){
+    if (feature != "undefined") {
         featureQuery = "c.FEATURE = '" + feature + "'"
     }
-    if(time != "undefined"){
+    if (time != "undefined") {
         var myDate = new Date();
-        var days = ['MONDAY', 'TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY']
+        var days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
         var today = days[myDate.getDay()];
         var open = "h." + today + "_O"
         var close = "h." + today + "_C"
@@ -114,34 +112,32 @@ app.get('/search_feature/:city/:feature/:time', function(request, response){
     console.log(cityQuery)
     console.log(featureQuery)
     console.log(timeQuery)
-    
     //var query = "select b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c\
-                 //where  c.FEATURE = '" + feature + "' and b.CITY = '" + city + "'" 
+    //where  c.FEATURE = '" + feature + "' and b.CITY = '" + city + "'" 
     var query = "select DISTINCT b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c natural join HOUR h "
-    if(cityQuery != "" || featureQuery != "" || timeQuery != ""){
+    if (cityQuery != "" || featureQuery != "" || timeQuery != "") {
         query = query + "WHERE "
     }
     var prev = 0
-    if(cityQuery != ""){
+    if (cityQuery != "") {
         query = query + cityQuery
-        prev = prev | 1 
+        prev = prev | 1
     }
-    if(featureQuery != ""){
-        if(prev == 1){
+    if (featureQuery != "") {
+        if (prev == 1) {
             query = query + " AND "
         }
         prev = prev | 1
         query = query + featureQuery;
     }
-    if(timeQuery != ""){
-        if(prev == 1){
+    if (timeQuery != "") {
+        if (prev == 1) {
             query = query + " AND "
         }
         prev = prev | 1
         query = query + timeQuery;
     }
     console.log(query)
-
     database.execute(query, function(error, result) {
         if (error) {
             throw error
@@ -154,22 +150,6 @@ app.get('/search_feature/:city/:feature/:time', function(request, response){
 app.get('/search_script.js', function(request, response) {
     response.sendFile(path.join(__dirname, '/', 'search_script.js'))
 })
-// app.get('/searchbest/:city', function(request, response){
-//     var city = request.params.city
-//     var query = "select NAME, LAT, LOG, STARS, REVIEW_COUNT from BUSINESS \
-//                  where STARS = (select max(b.from BUSINESS b \
-//                                 group by b.STATE \
-//                                 HAVING b.city = '" + city + "') AND CITY = '"  + city + "'"
-//     database.execute(query, function(error, result) {
-//         if (error) {
-//             throw error
-//             return
-//         }
-//         console.log(result.rows)
-//         response.send(result.rows)
-//     })
-// })
-
 app.listen(app.get('port'), function() {
     console.log("Node app is running at localhost:" + app.get('port'))
 })

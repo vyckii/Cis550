@@ -9,15 +9,16 @@
 		<script src = "http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
 		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="/search_script.js"></script>
-		
-		<!-- <script src = "/searchbest_script.js"></script> -->
-		<!-- <style>
-		table, th, td {
-			border: 1px solid black;
-    		border-collapse: collapse;
-		}									
-		</style>  -->
-
+		<script>
+            function disp() {
+            	var Kuang = document.getElementById('kuang')
+                Kuang.setAttribute("class", "tbl-content2");
+            	var hTable = document.getElementById('resultH')
+                hTable.style.display = ""
+                var pTable = document.getElementById('resultT')
+                pTable.style.display = ""
+            }
+        </script>
 	</head>
 	<body ng-app = "Search">
 		<div ng-controller = "SearchController">
@@ -30,7 +31,7 @@
                     <table>
                         <tr>
                             
-                             <button type="button" ng-click="SearchF()" class="button">Search
+                             <button type="button" ng-click="SearchF()" onclick="disp()" class="button">Search
                              </button>
                             
            
@@ -40,7 +41,7 @@
             </div>
 			<section>
 			<div class="tbl-header">
-    		<table cellpadding="0" cellspacing="0" border="0">
+    		<table cellpadding="0" cellspacing="0" border="0" id="resultH">
       		<thead>
         		<tr>
           		<th> Name </th>
@@ -51,8 +52,8 @@
       		</thead>
    		 	</table>
   			</div>
-  			<div class="tbl-content">
-    		<table cellpadding="0" cellspacing="0" border="0">
+  			<div class="tbl-content1" id="kuang">
+    		<table cellpadding="0" cellspacing="0" border="0" id="resultT">
       		<tbody>
         		<tr ng-repeat = "x in data">
 		            <td> {{x[0]}} </td>
@@ -62,44 +63,13 @@
 				</tr>
       		</tbody>
     		</table>
+    		<script>
+    		var hTable = document.getElementById('resultH')
+            hTable.style.display = "none"
+            var pTable = document.getElementById('resultT')
+            pTable.style.display = "none"
+        	</script>
   			</div>
 			</section>
-			<!-- <table>
-		        	
-		             <td> Open Time </td>
-		              <td> Close Time </td>
-				<tr ng-repeat = "x in data">
-		            <td> {{x[0]}} </td>
-		            <td> {{x[1]}} </td>
-		            <td> {{x[2]}} </td>
-		            <td> {{x[3]}} </td>
-		            <td> {{x[4]}} </td>
-		            <td> {{x[5]}} </td>
-				</tr>
-			</table> -->
-
 	</body>
-	<!-- <body ng-app = "SearchBest">
-		<div ng-controller = "SearchBestController">
-			<p> Find the most high-rated shop in: <input type = "text" ng-model = "city" value = ''>
-				<button type="button" ng-click="Search()" class="button">Search</button>
-			</p>
-			<table>
-				<tr>
-		        	<td> Name </td>
-		            <td> Latitude </td>
-		            <td> Longitude </td>
-		            <td> Stars </td>
-		            <td> Review Count </td>
-				</tr>
-				<tr ng-repeat = "x in data">
-					<td> {{x.NAME}} </td>
-		            <td> {{x.LAT}} </td>
-		            <td> {{x.LON}}</td>
-		            <td> {{x.STARS}} </td>
-		            <td> {{x.REVIEW_COUNT}} </td>
-				</tr>
-			</table>
-		</div>
-	</body> -->
 </html>
