@@ -15,6 +15,7 @@ oracledb.getConnection({
         return
     }
     database = connection
+    console.log('Testing database link...')
     connection.execute("SELECT * FROM BUSINESS where STATE = 'OH' and rownum = 1", // bind value for :id
         function(err, result) {
             if (err) {
@@ -23,7 +24,8 @@ oracledb.getConnection({
                 return
             }
             console.log(result.rows)
-            //doRelease(connection) 
+            console.log('\nStart working...\n')
+            //doRelease(connection)
         })
 })
 var options = {
@@ -35,7 +37,9 @@ var options = {
 }
 var geocoder = NodeGeocoder(options)
 geocoder.geocode('29 champs elysée paris', function(err, res) {
+    console.log('Testing geocode...')
     console.log(res)
+    console.log('\nStart working...\n')
 })
 var lat = ""
 var long = ""
@@ -174,8 +178,8 @@ app.get('/near', function(request, response) {
 })
 app.get('/search_near/:addr/:feature', function(request, response) {
     var addr = request.params.addr
-    console.log(addr)
     var feature = request.params.feature
+    console.log(addr, feature)
     getAddr(addr)
     setTimeout(function() {
         runNear(feature, response)
@@ -194,7 +198,7 @@ function getAddr(addr) {
 function runNear(feature, response) {
     var query = "select DISTINCT b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c WHERE (b.LAT -(" + lat + ")) * (b.LAT -(" + lat + ")) + (b.LON -(" + long + ")) * (b.LON -(" + long + ")) < 3"
     if (feature != "undefined") {
-        query = query + "AND c.FEATURE = '" + feature + "'"
+        query = query + " AND c.FEATURE = '" + feature + "'"
     }
     console.log(query)
     database.execute(query, function(error, result) {
@@ -212,11 +216,11 @@ app.get('/popular', function(request, response) {
 })
 app.get('/search_pop/:city/:feature', function(request, response) {
     var city = request.params.city
-    console.log(city)
     var feature = request.params.feature
+    console.log(city, feature)
     var query = "select DISTINCT b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c WHERE b.CITY = '" + city + "' AND b.REVIEW_COUNT > 100 AND b.STARS = 5"
     if (feature != "undefined") {
-        query = query + "AND c.FEATURE = '" + feature + "'"
+        query = query + " AND c.FEATURE = '" + feature + "'"
     }
     console.log(query)
     database.execute(query, function(error, result) {
@@ -229,5 +233,5 @@ app.get('/search_pop/:city/:feature', function(request, response) {
     })
 })
 app.listen(app.get('port'), function() {
-    console.log("Node app is running at localhost:" + app.get('port'))
+    console.log("\nNode app is running at localhost:" + app.get('port') + "\n")
 })
