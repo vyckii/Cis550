@@ -3,7 +3,8 @@
 	<head>
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-		<meta charset='utf-8'>
+
+  		<meta charset='utf-8'>
    		<meta http-equiv="X-UA-Compatible" content="IE=edge">
    		<meta name="viewport" content="width=device-width, initial-scale=1">
   		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -11,6 +12,7 @@
 		<script src = "http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
 		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="/search_script.js"></script>
+		
 		<script>
             function disp() {
             	var Kuang = document.getElementById('kuang')
@@ -24,24 +26,23 @@
 
 	</head>
 	<body ng-app = "Search">
-		<div ng-controller = "SearchController">
-		<div id='cssmenu'>
+		<div ng-controller = "NearMeController">
+			<div id='cssmenu'>
 <ul>
    <li><a href='/login/'>Log Out</a></li>
-   <li class='active'><a href='/search/'>Search</a></li>
-   <li><a href='/near/'>Near Me</a></li>
+   <li><a href='/search/'>Search</a></li>
+   <li class='active'><a href='/near/'>Near Me</a></li>
    <li><a href='/popular/'>Most Popular</a></li>
 </ul>
 </div>
 			<div class="form">
                 <form class="search-form">
-                    <input city="city" ng-model="city" placeholder="city" value="">
+                    <input Address="address" ng-model="addr" placeholder="address" value="">
 					<input feature="feature" ng-model="feature" placeholder="feature" value="">
-					<input time = "time" ng-model = "time" placeholder="time" value = "">
                     <table>
                         <tr>
                             
-                             <button type="button" ng-click="SearchF()" onclick="disp()" class="button">Search
+                             <button type="button" ng-click="Near()" onclick="disp()" class="button">Search
                              </button>
                             
            
