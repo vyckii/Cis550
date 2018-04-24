@@ -49,7 +49,7 @@ function doRelease(connection) {
         if (err) console.error(err.message)
     })
 }
-app.set('port', (process.env.PORT || 5004))
+app.set('port', (process.env.PORT || 5001))
 app.use(express.static(__dirname + '/public'))
 app.get('/quit', function(request, response) {
     doRelease(database)
