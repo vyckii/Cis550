@@ -56,6 +56,7 @@ app.get('/quit', function(request, response) {
     process.exit()
 })
 app.get('/login', function(request, response) {
+	console.log('login')
     response.sendFile(path.join(__dirname, '/', 'login.html'))
 })
 app.get('/login_script.js', function(request, response) {
@@ -98,7 +99,7 @@ app.get('/signup_info/:user_id/:password', function(request, response) {
             throw error
             return
         }
-        console.log(result.rows)
+        console.log('user added')
         response.send(result.rows)
     })
 })
@@ -137,8 +138,6 @@ app.get('/search_feature/:city/:feature/:time', function(request, response) {
     console.log(cityQuery)
     console.log(featureQuery)
     console.log(timeQuery)
-    //var query = "select b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c\
-    //where  c.FEATURE = '" + feature + "' and b.CITY = '" + city + "'" 
     var query = "select DISTINCT b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c natural join HOUR h "
     if (cityQuery != "" || featureQuery != "" || timeQuery != "") {
         query = query + "WHERE "
@@ -240,7 +239,7 @@ app.get('/review', function(request, response) {
 app.get('/search_review/:name', function(request, response) {
     var name = request.params.name
     console.log(name)
-    var query = " SELECT text from REVIEW NATURAL JOIN BUSINESS b WHERE b.NAME = '" + name + "' and rownum <=5"
+    var query = " SELECT text from REVIEW NATURAL JOIN BUSINESS b WHERE b.NAME = '" + name + "' and rownum <= 30 ORDER BY REVIEW_DATE DESC"
     console.log(query)
     database.execute(query, function(error, result) {
         if (error) {
@@ -248,6 +247,88 @@ app.get('/search_review/:name', function(request, response) {
             return
         }
         console.log("Get " + (result.rows).length + " results.")
+        response.send(result.rows)
+    })
+})
+app.get('/comment', function(request, response) {
+    console.log('comment')
+    response.sendFile(path.join(__dirname, '/', 'comment.html'))
+})
+app.get('/business_check/:bname', function(request, response) {
+    var bname = request.params.bname
+    var query = "select BUSINESS_ID from BUSINESS where NAME = '" + bname + "'"
+    console.log(query)
+    database.execute(query, function(error, result) {
+        if (error) {
+            throw error
+            return
+        }
+        console.log(result.rows)
+        response.send(result.rows)
+    })
+})
+app.get('/review_check/:subject', function(request, response) {
+    var subject = request.params.subject
+    var query = "select REVIEW_ID from REVIEW where REVIEW_ID = '" + subject + "'"
+    console.log(query)
+    database.execute(query, function(error, result) {
+        if (error) {
+            throw error
+            return
+        }
+        console.log(result.rows)
+        response.send(result.rows)
+    })
+})
+app.get('/add_comment/:user_id/:bname/:subject/:star/:ctext', function(request, response) {
+    var user_id = request.params.user_id
+    var bname = request.params.bname
+    var subject = request.params.subject
+    var star = request.params.star
+    var ctext = request.params.ctext
+    if (ctext == "undefined") {
+        ctext = ""
+    }
+    var query = "update USERS set REVIEW_COUNT = REVIEW_COUNT + 1 where USER_ID = '" + user_id + "'"
+    console.log(query)
+    database.execute(query, function(error, result) {
+        if (error) {
+            throw error
+            return
+        }
+        console.log('user rc incrased')
+        response.send(result.rows)
+    })
+    var query = "update BUSINESS set REVIEW_COUNT = REVIEW_COUNT + 1 where NAME = '" + bname + "'"
+    console.log(query)
+    database.execute(query, function(error, result) {
+        if (error) {
+            throw error
+            return
+        }
+        console.log('business rc incrased')
+        response.send(result.rows)
+    })
+    var myDate = new Date()
+    var month = myDate.getMonth()
+    var myMonth = "" + month
+    if (month < 10) {
+        myMonth = "0" + month
+    }
+    var date = myDate.getDate()
+    var myDay = "" + date
+    if (date < 10) {
+        myDay = "0" + date
+    }
+    var myTime = myDate.getFullYear() + "-" + myMonth + "-" + myDay
+    var query = "insert into REVIEW (REVIEW_ID, USER_ID, BUSINESS_ID, STARS, REVIEW_DATE, TEXT) values ('" + subject + "', '" + user_id + "', (select BUSINESS_ID from BUSINESS where NAME = '" + bname + "' and rownum = 1), " + star + ", '" + myTime + "', '" + ctext + "')"
+    console.log(query)
+    database.execute(query, function(error, result) {
+        if (error) {
+            throw error
+            return
+        }
+        console.log('comment added')
         response.send(result.rows)
     })
 })

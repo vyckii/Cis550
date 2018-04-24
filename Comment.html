@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" rel="stylesheet">
+            <meta charset="utf-8">
+                <meta content="IE=edge" http-equiv="X-UA-Compatible">
+                    <meta content="width=device-width, initial-scale=1" name="viewport">
+                        <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript">
+                        </script>
+                        <link href="/search.css" rel="stylesheet">
+                            <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js">
+                            </script>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+                            </script>
+                            <script src="/search_script.js">
+                            </script>
+                        </link>
+                    </meta>
+                </meta>
+            </meta>
+        </link>
+    </head>
+    <audio autoplay="autoplay" loop="loop" preload="auto" src="soma.mp3">
+    </audio>
+    <body ng-app="Search">
+        <div ng-controller="SearchController">
+            <div id="cssmenu">
+                <ul>
+                    <li>
+                        <a href="/login">
+                            Log Out
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search">
+                            Search
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/near">
+                            Near Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/popular">
+                            Most Popular
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/review">
+                            Reviews
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/comment">
+                            Comment
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="form">
+                <form class="search-form">
+                    <input ng-model="uid" placeholder="user id" uid="uid" value="">
+                        <input bname="bname" ng-model="bname" placeholder="business name" value="">
+                            <input ctext="ctext" ng-model="ctext" placeholder="review content" value="">
+                                <input ng-model="subject" placeholder="subject" subject="subject" value="">
+                                    <table>
+                                        <tr>
+                                            <button class="button" ng-click="Comment()" type="button">
+                                                Comment
+                                            </button>
+                                        </tr>
+                                    </table>
+                                </input>
+                            </input>
+                        </input>
+                    </input>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

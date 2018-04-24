@@ -12,6 +12,7 @@ app.controller('logController', function($scope, $http) {
                         location.href='/search'
                     } else {
                         alert('User not exist or wrong info!')
+                        return
                     }
                 })
                 request.error(function(data) {
@@ -28,6 +29,7 @@ app.controller('logController', function($scope, $http) {
                     if (data.length != 0) {
                         alert('User already exist!')
                         console.log(data)
+                        return
                     } else {
                         request = $http.get("/signup_info/" + $scope.user_id + "/" + $scope.user_pass)
                         request.success(function(data) {
