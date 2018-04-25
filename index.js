@@ -195,7 +195,7 @@ function getAddr(addr) {
 }
 
 function runNear(feature, response) {
-    var query = "select DISTINCT b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c WHERE (b.LAT -(" + lat + ")) * (b.LAT -(" + lat + ")) + (b.LON -(" + long + ")) * (b.LON -(" + long + ")) < 3"
+    var query = "select DISTINCT b.NAME, b.ADDRESS, b.STARS, b.REVIEW_COUNT from BUSINESS b natural join CATEGORIES c WHERE (b.LAT -(" + lat + ")) * (b.LAT -(" + lat + ")) + (b.LON -(" + long + ")) * (b.LON -(" + long + ")) < 0.1"
     if (feature != "undefined") {
         query = query + " AND c.FEATURE = '" + feature + "'"
     }
