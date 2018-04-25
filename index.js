@@ -239,7 +239,7 @@ app.get('/review', function(request, response) {
 app.get('/search_review/:name', function(request, response) {
     var name = request.params.name
     console.log(name)
-    var query = " SELECT text from REVIEW NATURAL JOIN BUSINESS b WHERE b.NAME = '" + name + "' and rownum <= 30 ORDER BY REVIEW_DATE DESC"
+    var query = "SELECT text from REVIEW NATURAL JOIN BUSINESS b WHERE b.NAME = '" + name + "' and rownum <= 30 ORDER BY REVIEW_DATE DESC"
     console.log(query)
     database.execute(query, function(error, result) {
         if (error) {
